@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'poppins-regular';
+    src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'poppins-semibold';
+    src: url('/fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'poppins-bold';
+    src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'poppins-medium';
+    src: url('/fonts/Poppins-Medium.ttf') format('truetype');
+}
+
+.navbanner,
+.ekipbanner,
+.blogbanner,
+.sosyalbanner,
+.iletisimbanner,
+.kurumsalbanner,
+.bireyselbanner {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navbanner {
+    background-image: url('../../public/assets/banner.jpg');
+}
+.ekipbanner {
+    background-image: url('../../public/assets/ekibimiz-banner.jpg');
+}
+.blogbanner {
+    background-image: url('../../public/assets/blog-banner.jpg');
+}
+.sosyalbanner {
+    background-image: url('../../public/assets/sosyal-sorumluluk-banner.jpg');
+}
+.iletisimbanner {
+    background-image: url('../../public/assets/iletisim-banner.jpg');
+}
+.kurumsalbanner {
+    background-image: url('../../public/assets/kurumsal-banner.png');
+}
+.bireyselbanner {
+    background-image: url('../../public/assets/bireysel-banner.png');
+}
+
+.homebtn {
+    background-image: linear-gradient(to left, #0985f9, #0b72f8, #2f5cf3, #2f5cf3, #4d40ea);
+}
+
+.parallax-bg {
+    background: url('../../public/assets/parallax-bg.jpg') center/cover;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    display: none !important;
+}
+
+.btn {
+    background-image: linear-gradient(to left, #0985f9, #0b72f8, #2f5cf3, #2f5cf3, #4d40ea);
+    width: 100%;
+    height: 64px;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 15px;
+    color: #fff;
+    line-height: 64px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+}
+
+.btn:hover {
+    background-image: linear-gradient(to right, #0985f9, #0b72f8, #2f5cf3, #2f5cf3, #4d40ea);
+}
+
+.swiper-pagination-bullet {
+    border: 3px dotted #071aca;
+    padding: 7px;
+    background-color: #fff !important;
+    transition: all 300ms !important;
+}
+
+.swiper-pagination-bullet-active {
+    border-color: transparent;
+    background-color: #3143db !important;
+}
