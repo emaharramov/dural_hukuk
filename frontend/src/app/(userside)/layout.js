@@ -1,10 +1,10 @@
 import localFont from "next/font/local";
-import "./globals.css";
+import "../globals.css";
 import Header from "@/component/Header";
 import Footer from "@/component/Footer";
 
 const Poppins = localFont({
-  src: "../../public/fonts/Poppins-Regular.ttf",
+  src: "../../../public/fonts/Poppins-Regular.ttf",
   variable: "--font-Poppins-sans",
   weight: "400",
 });

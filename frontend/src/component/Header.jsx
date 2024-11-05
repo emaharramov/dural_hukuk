@@ -5,6 +5,7 @@ import {
   FaFacebookSquare,
   FaInstagram,
   FaLinkedin,
+  FaUser,
   FaYoutube,
 } from "react-icons/fa";
 import Navbar from "./Navbar";
@@ -16,6 +17,7 @@ const socialMediaLinks = [
   { icon: FaInstagram, link: "https://instagram.com" },
   { icon: FaLinkedin, link: "https://linkedin.com" },
   { icon: FaYoutube, link: "https://youtube.com" },
+  { icon: FaUser, link: "/login" },
 ];
 
 const Header = () => {
@@ -88,15 +90,13 @@ const ContactItem = ({ icon, link, text }) => (
 const SocialMediaLinks = () => (
   <div className="border-l-[1px] flex divide-x-[1px]">
     {socialMediaLinks.map(({ icon: Icon, link }, index) => (
-      <a
+      <Link
         href={link}
         key={index}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="p-4 group"
+        className="p-4 group hover:bg-gradient-to-l hover:from-[#0985f9] hover:via-[#2f5cf3] hover:to-[#4d40ea] hover:border-[#333]"
       >
         <Icon className="transition-all duration-150 z-10 group-hover:text-white" />
-      </a>
+      </Link>
     ))}
   </div>
 );
