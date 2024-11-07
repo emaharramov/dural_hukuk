@@ -32,7 +32,7 @@
     "JWT_SECRET": "@jwt_secret",
     "MONGO_URI": "@mongo_uri"
   },
-  "regions": ["all"],
+  "regions": ["iad1"],
   "cleanUrls": true,
   "headers": [
     {
