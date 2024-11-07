@@ -6,28 +6,6 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/auth/(.*)",
-      "dest": "/api/auth/$1"
-    },
-    {
-      "src": "/api/posts/(.*)",
-      "dest": "/api/posts/$1"
-    },
-    {
-      "src": "/uploads/(.*)",
-      "headers": {
-        "cache-control": "max-age=0, s-maxage=86400",
-        "Access-Control-Allow-Origin": "*"
-      },
-      "dest": "/uploads/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
   "env": {
     "JWT_SECRET": "@jwt_secret",
     "MONGO_URI": "@mongo_uri"
@@ -55,12 +33,37 @@
           "value": "X-Requested-With, Authorization, Content-Type, Accept"
         }
       ]
+    },
+    {
+      "source": "/uploads/(.*)",
+      "headers": [
+        {
+          "key": "cache-control",
+          "value": "max-age=0, s-maxage=86400"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
     }
   ],
   "rewrites": [
     {
+      "source": "/api/auth/(.*)",
+      "destination": "/api/auth/$1"
+    },
+    {
+      "source": "/api/posts/(.*)",
+      "destination": "/api/posts/$1"
+    },
+    {
       "source": "/uploads/(.*)",
       "destination": "/public/uploads/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
     }
   ]
 }
