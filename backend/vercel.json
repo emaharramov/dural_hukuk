@@ -1,1 +1,66 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/api" }] }
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/auth/(.*)",
+      "dest": "/api/auth/$1"
+    },
+    {
+      "src": "/api/posts/(.*)",
+      "dest": "/api/posts/$1"
+    },
+    {
+      "src": "/uploads/(.*)",
+      "headers": {
+        "cache-control": "max-age=0, s-maxage=86400",
+        "Access-Control-Allow-Origin": "*"
+      },
+      "dest": "/uploads/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "JWT_SECRET": "@jwt_secret",
+    "MONGO_URI": "@mongo_uri"
+  },
+  "regions": ["all"],
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "http://localhost:3001"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-Requested-With, Authorization, Content-Type, Accept"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/uploads/(.*)",
+      "destination": "/public/uploads/$1"
+    }
+  ]
+}
