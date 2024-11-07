@@ -18,9 +18,7 @@ const NewsSlider = () => {
       }
     }
     fetchData();
-  }, []);
-
-  console.log(blogs);
+  }, [])
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -36,6 +34,7 @@ const NewsSlider = () => {
             height={168}
             src={`http://localhost:3000${item.image}`}
             alt={item.title}
+            className="w-full"
           />
           <div className="px-6 py-4">
             <Link href={`/blog/${item._id}/${item.title}`} passHref>

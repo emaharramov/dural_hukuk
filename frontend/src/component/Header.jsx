@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState, useMemo } from "react";
 import { FaPhoneVolume, FaEnvelopeOpen } from "react-icons/fa6";
 import {
@@ -24,14 +23,16 @@ const socialMediaLinks = [
 
 const Header = () => {
   const path = usePathname();
-  const [title, setTitle] = useState("");
-  const token = Cookies.get("token");
+  const [title, setTitle] = useState("Varsayılan Başlık");
+  const [token, setToken] = useState(null);
   const bax = path.startsWith("/blog/");
 
   useEffect(() => {
+    // Sadece istemci tarafında çalışacak kodlar
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       setTitle(params.get("title") || "Varsayılan Başlık");
+      setToken(Cookies.get("token"));
     }
   }, [path]);
 
@@ -135,7 +136,9 @@ const SocialMediaLinks = ({ token }) => (
 const HeaderContent = ({ mainpage, combinedTitle, bax }) => (
   <div className="h-[70%] text-white flex flex-col items-center justify-center">
     <h1
-      className="container mx-auto font-poppins-semibold text-center text-[26px] md:text-[32px] lg:text-[50px]"
+      className={`container mx-auto font-poppins-semibold text-center ${
+        bax ? "text-[23px]" : ""
+      } text-[26px] md:text-[32px] lg:text-[50px]`}
       data-aos="fade-in"
       data-aos-delay={300}
     >
@@ -144,8 +147,8 @@ const HeaderContent = ({ mainpage, combinedTitle, bax }) => (
     <h2
       data-aos="fade-in"
       data-aos-delay={350}
-      className={`font-poppins-semibold text-[22px] ${
-        mainpage ? "md:text-[36px]" : ""
+      className={`font-poppins-semibold text-center text-[22px] ${
+        mainpage ? "md:text-[36px]" : bax ? "text-[18px]" : ""
       } mb-7`}
     >
       {mainpage

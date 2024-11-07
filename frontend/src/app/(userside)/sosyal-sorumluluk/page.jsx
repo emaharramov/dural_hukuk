@@ -68,11 +68,11 @@ const page = () => {
           <li>İkametgah (E-devletten alınabilir)</li>
         </ul>
       </div>
-      <div className="w-[730px] mx-auto">
-        <h2 className="font-poppins-bold text-[40px] pt-12 mb-7 text-center">
+      <div className="w-[98%] md:w-[730px] mx-auto">
+        <h2 className="font-poppins-bold text-[32px] md:text-[40px] pt-12 mb-7 text-center">
           Ücretsiz avukat tutmaya uygun musunuz?
         </h2>
-        <p className="text-[18px] text-[#4B4B4B] font-poppins pb-4">
+        <p className="text-[18px] w-[95%] mx-auto text-[#4B4B4B] font-poppins pb-4">
           Ofisimiz avukatlık etiği gereği size yardımcı olmaktan mutluluk
           duyacaktır.
         </p>

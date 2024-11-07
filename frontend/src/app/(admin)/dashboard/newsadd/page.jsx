@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [title, setTitle] = useState("");
@@ -13,6 +14,7 @@ const Page = () => {
   const [tags, setTags] = useState("");
   const [content, setContent] = useState("");
   const quillRef = useRef(null);
+  const router = useRouter()
 
   useEffect(() => {
     const quill = new Quill(quillRef.current, {
@@ -70,6 +72,7 @@ const Page = () => {
         }
       );
       toast.success("Post added successfully!");
+      router.push("/dashboard/news");
     } catch (error) {
       toast.error(
         `Error: ${error.response ? error.response.data.message : error.message}`

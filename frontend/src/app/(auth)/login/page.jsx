@@ -57,7 +57,7 @@ const LoginPage = () => {
               Password
             </label>
             <input
-              type="text"
+              type="password"
               id="password"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-100"
               value={password}
