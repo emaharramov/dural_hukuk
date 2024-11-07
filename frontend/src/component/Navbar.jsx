@@ -8,6 +8,8 @@ const Navbar = () => {
     <nav className="flex items-stretch justify-between border-b-[1px] border-[#274463]">
       <Link href="/" className="cursor-pointer">
         <Image
+          data-aos="fade-in"
+          data-aos-delay={300}
           src={Logo}
           alt="Logo"
           unoptimized
@@ -18,10 +20,15 @@ const Navbar = () => {
       <div className="hidden gap-x-2 lg:flex">
         {/* Neler Yapıyoruz Menüsü */}
         <div className="h-full flex items-center text-white transition-all hover:text-[#10AFEC] font-poppins-semibold relative group">
-          <Link href="#" className="px-2">
+          <Link
+            href="#"
+            className="px-2"
+            data-aos="fade-up"
+            data-aos-delay={300}
+          >
             Neler Yapıyoruz?
           </Link>
-          <div className="absolute invisible top-full bg-black w-[300px] left-[-17px] px-[25px] py-1 flex flex-col font-poppins transition-all opacity-0 group-hover:opacity-100 group-hover:visible">
+          <div className="absolute z-10 invisible top-full bg-black w-[300px] left-[-17px] px-[25px] py-1 flex flex-col font-poppins transition-all opacity-0 group-hover:opacity-100 group-hover:visible">
             <Link
               href="/kurumsal?title=Neler Yapıyoruz?"
               className="text-white hover:text-[#10AFEC] transition-all py-2"
@@ -38,23 +45,35 @@ const Navbar = () => {
         </div>
 
         {/* Ekibimiz Menüsü */}
-          <Link href="/ekibimiz?title=Ekibimiz" className="px-2">
-        <div className="h-full flex items-center text-white transition-all hover:text-[#10AFEC] font-poppins-semibold">
+        <Link
+          href="/ekibimiz?title=Ekibimiz"
+          className="px-2"
+          data-aos="fade-up"
+          data-aos-delay={350}
+        >
+          <div className="h-full flex items-center text-white transition-all hover:text-[#10AFEC] font-poppins-semibold">
             Ekibimiz
-        </div>
-          </Link>
+          </div>
+        </Link>
 
         {/* Makaleler ve Haberler Menüsü */}
-          <Link href="/blog?title=Makaleler ve Haberler" className="px-2">
-        <div className="h-full flex items-center text-white transition-all hover:text-[#10AFEC] font-poppins-semibold">
+        <Link
+          href="/blog?title=Makaleler ve Haberler"
+          className="px-2"
+          data-aos="fade-up"
+          data-aos-delay={400}
+        >
+          <div className="h-full flex items-center text-white transition-all hover:text-[#10AFEC] font-poppins-semibold">
             Makaleler ve Haberler
-        </div>
-          </Link>
+          </div>
+        </Link>
 
         {/* Sosyal Sorumluluk Menüsü */}
         <Link
           href="/sosyal-sorumluluk?title=Sosyal Sorumluluk"
           className="px-2"
+          data-aos="fade-up"
+          data-aos-delay={450}
         >
           <div className="h-full flex items-center text-white transition-all hover:text-[#10AFEC] font-poppins-semibold">
             Sosyal Sorumluluk
@@ -62,7 +81,12 @@ const Navbar = () => {
         </Link>
 
         {/* İletişim Menüsü */}
-        <Link href="/iletisim?title=İletişim" className="px-2">
+        <Link
+          href="/iletisim?title=İletişim"
+          className="px-2"
+          data-aos="fade-up"
+          data-aos-delay={500}
+        >
           <div className="h-full flex items-center text-white transition-all hover:text-[#10AFEC] font-poppins-semibold">
             İletişim
           </div>

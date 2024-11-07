@@ -24,18 +24,33 @@ exports.getPostById = async (req, res) => {
   }
 };
 
-// Yeni bir gönderi oluşturma
+const fs = require("fs");
+const path = require("path");
+
 exports.createPost = async (req, res) => {
   try {
-    const { title, content, tags } = req.body;
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null; // Resim dosyasının yolunu al
+    const { title, content, tags, author, image } = req.body;
 
+    let imageUrl = null;
+
+    if (image) {
+      // Base64 verisini çöz ve dosya olarak kaydet
+      const base64Data = image.replace(/^data:image\/\w+;base64,/, "");
+      const buffer = Buffer.from(base64Data, "base64");
+      const imageName = `${Date.now()}-image.jpg`; // Unique dosya adı
+      const imagePath = path.join(__dirname, "../uploads", imageName);
+
+      fs.writeFileSync(imagePath, buffer);
+      imageUrl = `/uploads/${imageName}`; // Veritabanında saklanacak URL
+    }
+
+    // Post veritabanına kaydetme
     const post = await Post.create({
       title,
       content,
-      tags: tags || [], // Tags yoksa boş dizi olarak kaydet
+      tags: tags || [],
       image: imageUrl,
-      author: req.user.id, // Kullanıcının ID'sini al (auth middleware'dan geliyor)
+      author,
     });
 
     res.status(201).json(post);
@@ -55,13 +70,12 @@ exports.updatePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    // Yalnızca gerekli alanları güncelle
     post.title = title || post.title;
     post.content = content || post.content;
     post.tags = tags || post.tags;
     if (imageUrl) post.image = imageUrl;
 
-    await post.save(); // Değişiklikleri kaydet
+    await post.save();
     res.status(200).json(post);
   } catch (error) {
     res.status(400).json({ error: error.message });

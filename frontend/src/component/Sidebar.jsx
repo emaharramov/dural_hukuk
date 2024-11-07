@@ -5,7 +5,7 @@ import { IoHome } from "react-icons/io5";
 import { GiNewspaper } from "react-icons/gi";
 import { FaUsers } from "react-icons/fa";
 import { usePathname } from "next/navigation";
-import UserProfile from "./UserProfile";
+import UserProfile from "../../src/component/UserProfile";
 
 const navigationItems = [
   { href: "/dashboard", icon: <IoHome color="#333" />, label: "Ana Sayfa" },
@@ -23,7 +23,6 @@ const navigationItems = [
 
 const Sidebar = () => {
   const path = usePathname();
-  console.log(path);
 
   return (
     <div className="sidebar border-[1px] border-[#E7EAED] w-[240px] p-2">

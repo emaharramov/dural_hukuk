@@ -1,9 +1,9 @@
-import Sidebar from "./component/Sidebar";
+import Sidebar from "../../../src/component/Sidebar";
 import "../globals.css";
 
 export default function Layout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
         <div className="px-3 py-2 font-poppins">top</div>
         <div className="flex">

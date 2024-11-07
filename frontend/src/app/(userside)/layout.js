@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "../globals.css";
 import Header from "@/component/Header";
 import Footer from "@/component/Footer";
+import { AosComponent } from "../Aos";
 
 const Poppins = localFont({
   src: "../../../public/fonts/Poppins-Regular.ttf",
@@ -18,9 +19,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-      <Header />
+        <Header />
+        <AosComponent />
         {children}
-      <Footer />
+        <Footer />
       </body>
     </html>
   );

@@ -14,12 +14,14 @@ const storage = multer.diskStorage({
 
 // Sadece resim dosyalarını kabul et
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image/")) {
+  console.log(file); // Dosya bilgilerini kontrol etmek için loglayın
+  if (file.mimetype && file.mimetype.startsWith("image/")) {
     cb(null, true);
   } else {
     cb(new Error("Only image files are allowed!"), false);
   }
 };
+
 
 const upload = multer({
   storage: storage,

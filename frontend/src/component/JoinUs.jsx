@@ -4,11 +4,14 @@ import { usePathname } from "next/navigation";
 
 const JoinUs = () => {
   const path = usePathname();
-  console.log(path);
-  // /sosyal-sorumluluk
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div
+      className="flex flex-col items-center justify-center"
+      data-aos="fade-in"
+      data-aos-easing="linear"
+      data-aos-duration={600}
+    >
       <h2 className="pt-12 w-full text-center pb-7 text-[32px] text-[#051133] font-poppins-bold">
         Ekibimize Katıl
       </h2>

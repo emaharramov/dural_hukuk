@@ -38,7 +38,7 @@ const yorumlar = [
 
 const GoogleComments = () => {
   return (
-    <div className="bg-[#F8F8F8] py-20">
+    <div className="bg-[#F8F8F8] py-20" data-aos="fade-up" data-aos-delay={300}>
       <div className="container mx-auto w-[90%] md:w-initial">
         <Swiper
           spaceBetween={30}

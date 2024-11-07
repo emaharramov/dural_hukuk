@@ -9,7 +9,11 @@ export const metadata = {
 
 const page = () => {
   return (
-    <div className="container mx-auto py-20">
+    <div
+      className="container mx-auto py-20"
+      data-aos="fade-in"
+      data-aos-duration={500}
+    >
       <div className="px-6 md:px-12 lg:px-24  font-poppins text-[#333333]">
         <h1 className="text-[#051133] font-poppins-semibold text-[28px] md:text-[32px] mb-6">
           BARO ADLİ YARDIM

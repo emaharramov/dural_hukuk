@@ -16,15 +16,27 @@ const page = () => {
       <div className="parallax-bg py-[50px]">
         <div className="w-[90%] md:w-full container mx-auto flex flex-col md:flex-row justify-between">
           <div className="py-[15px] md:px-[15px] md:w-[58%]">
-            <h2 className="mb-5 md:text-[32px] lg:text-[50px] font-poppins-semibold leading-[58px]">
+            <h2
+              className="mb-5 md:text-[32px] lg:text-[50px] font-poppins-semibold leading-[58px]"
+              data-aos="fade-up"
+              data-aos-duration={300}
+            >
               Ön görüşme için formu doldur!
             </h2>
-            <p className="text-[#4B4B4B] text-[18px] font-poppins">
+            <p
+              className="text-[#4B4B4B] text-[18px] font-poppins"
+              data-aos="fade-up"
+              data-aos-duration={400}
+            >
               Sizi daha fazla dinlemek, avukatlık ve danışmanlık ihtiyaçlarınıza
               odaklanmak istiyoruz. Ön görüşme için formu doldur, size dönelim.
             </p>
           </div>
-          <div className="p-[45px] flex flex-col gap-y-4  md:w-[41%] bg-white rounded-xl shadow-lg">
+          <div
+            className="p-[45px] flex flex-col gap-y-4  md:w-[41%] bg-white rounded-xl shadow-lg"
+            data-aos="fade-in"
+            data-aos-duration={500}
+          >
             <div className="flex items-center gap-x-4 border px-7 py-3 rounded-3xl">
               <FaUser className="text-gray-400" />
               <input
@@ -63,7 +75,11 @@ const page = () => {
       </div>
       <div className="container mx-auto py-[70px]">
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-x-3">
-          <div className="rounded-[7px] shadow-lg mx-4 pt-[38px] pb-[29px] pl-[60px] pr-[20px] xl:col-span-2">
+          <div
+            className="rounded-[7px] shadow-lg mx-4 pt-[38px] pb-[29px] pl-[60px] pr-[20px] xl:col-span-2"
+            data-aos="fade-up"
+            data-aos-duration={300}
+          >
             <p className="text-[24px] mb-[7px] text-[#051133] leading-7 font-poppins-semibold">
               Adres
             </p>
@@ -71,7 +87,12 @@ const page = () => {
               Arabacıalanı Mah. No:54 I Blok D:2022 Serdivan/Sakarya
             </p>
           </div>
-          <div className="rounded-[7px] shadow-lg mx-4 pt-[38px] pb-[29px] pl-[60px] pr-[20px]">
+
+          <div
+            className="rounded-[7px] shadow-lg mx-4 pt-[38px] pb-[29px] pl-[60px] pr-[20px]"
+            data-aos="fade-up"
+            data-aos-duration={350}
+          >
             <p className="text-[24px] mb-[7px] text-[#051133] leading-7 font-poppins-semibold">
               Telefon
             </p>
@@ -79,7 +100,12 @@ const page = () => {
               0850 532 17 45
             </p>
           </div>
-          <div className="rounded-[7px] shadow-lg mx-4 pt-[38px] pb-[29px] pl-[60px] pr-[20px]">
+
+          <div
+            className="rounded-[7px] shadow-lg mx-4 pt-[38px] pb-[29px] pl-[60px] pr-[20px]"
+            data-aos="fade-up"
+            data-aos-duration={400}
+          >
             <p className="text-[24px] mb-[7px] text-[#051133] leading-7 font-poppins-semibold">
               Email
             </p>

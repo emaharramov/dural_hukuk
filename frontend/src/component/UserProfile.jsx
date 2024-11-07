@@ -1,10 +1,25 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEllipsisV, FaUser } from "react-icons/fa";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const UserProfile = () => {
   const [open, setOpen] = useState(false);
+  const router = useRouter(); // useRouter hook'ını doğrudan kullan
+
+  // Logout fonksiyonu
+  const handleLogout = () => {
+    Cookies.remove("token"); // Cookie'den token'ı siler
+    router.push("/"); // Ana sayfaya yönlendirir
+  };
+
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      router.replace("/login"); // Cookie yoksa login sayfasına yönlendir
+    }
+  }, [router]);
 
   return (
     <div className="flex flex-col group">
@@ -25,17 +40,17 @@ const UserProfile = () => {
         } border-[1px] mt-2 p-4`}
       >
         <Link
-          href={"/"}
+          href={"/profile"}
           className="block p-2 rounded-md border-[1px] font-poppins transition-all duration-300 text-gray-800 hover:text-white hover:bg-black"
         >
           Profile
         </Link>
-        <Link
-          href={"/"}
-          className="block p-2 rounded-md border-[1px] font-poppins transition-all duration-300 text-gray-800 hover:text-white hover:bg-black"
+        <button
+          onClick={handleLogout}
+          className="p-2 rounded-md border-[1px] font-poppins transition-all duration-300 text-gray-800 hover:text-white hover:bg-black"
         >
           Logout
-        </Link>
+        </button>
       </div>
     </div>
   );

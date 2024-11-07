@@ -33,6 +33,8 @@ const NewsSlider = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {articles?.map((item, index) => (
         <div
+          data-aos="fade-up"
+          data-aos-delay={300 * index}
           key={index}
           className="flex flex-col justify-between w-[90%] mx-auto md:max-w-sm rounded overflow-hidden  transition-all duration-300 hover:shadow-md bg-white"
         >
@@ -42,9 +44,7 @@ const NewsSlider = () => {
             alt="Calisma Izni"
           />
           <div className="px-6 py-4">
-            <Link
-              href={`/blog/${item.id}/${item.title}`}
-            >
+            <Link href={`/blog/${item.id}/${item.title}`}>
               <div className="line-clamp-3 font-poppins-medium text-[24px] md:text-[28px] cursor-pointer leading-8 transition-all duration-300 hover:text-[#00419D] hover:underline mb-2">
                 {item.title}
               </div>

@@ -31,8 +31,10 @@ const services = [
 const Services = () => {
   return (
     <div className="flex flex-wrap justify-center gap-4 p-5">
-      {services.map((service) => (
+      {services.map((service,index) => (
         <div
+          data-aos="fade-up"
+          data-aos-delay={300 * index}
           key={service.id}
           className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-5 w-full md:w-[350px] flex flex-col items-center justify-center"
         >

@@ -1,5 +1,6 @@
 "use client";
-import React, { useMemo } from "react";
+
+import React, { useEffect, useState, useMemo } from "react";
 import { FaPhoneVolume, FaEnvelopeOpen } from "react-icons/fa6";
 import {
   FaFacebookSquare,
@@ -10,7 +11,7 @@ import {
 } from "react-icons/fa";
 import Navbar from "./Navbar";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const socialMediaLinks = [
   { icon: FaFacebookSquare, link: "https://facebook.com" },
@@ -22,8 +23,14 @@ const socialMediaLinks = [
 
 const Header = () => {
   const path = usePathname();
-  const searchParams = useSearchParams();
-  const title = searchParams.get("title");
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setTitle(params.get("title") || "Varsayılan Başlık");
+    }
+  }, [path]);
 
   const combinedTitle = useMemo(
     () => getCombinedTitle(path, title),
@@ -78,7 +85,10 @@ const ContactInfo = () => (
 );
 
 const ContactItem = ({ icon, link, text }) => (
-  <div className="flex items-center gap-x-3 p-4 border-r-[1px]">
+  <div
+    className="flex items-center gap-x-3 p-4 border-r-[1px]"
+    data-aos="fade-up"
+  >
     {icon}
     <a href={link} className="text-[#131418] font-poppins hover:underline">
       {text}
@@ -88,7 +98,7 @@ const ContactItem = ({ icon, link, text }) => (
 
 // Social Media Links Component
 const SocialMediaLinks = () => (
-  <div className="border-l-[1px] flex divide-x-[1px]">
+  <div className="border-l-[1px] flex divide-x-[1px]" data-aos="fade-up">
     {socialMediaLinks.map(({ icon: Icon, link }, index) => (
       <Link
         href={link}
@@ -104,10 +114,16 @@ const SocialMediaLinks = () => (
 // Header Content Component
 const HeaderContent = ({ mainpage, combinedTitle }) => (
   <div className="h-[70%] text-white flex flex-col items-center justify-center">
-    <h1 className="container mx-auto font-poppins-semibold text-center text-[26px] md:text-[32px] lg:text-[50px]">
+    <h1
+      className="container mx-auto font-poppins-semibold text-center text-[26px] md:text-[32px] lg:text-[50px]"
+      data-aos="fade-in"
+      data-aos-delay={300}
+    >
       {combinedTitle}
     </h1>
     <h2
+      data-aos="fade-in"
+      data-aos-delay={350}
       className={`font-poppins-semibold text-[22px] ${
         mainpage ? "md:text-[36px]" : ""
       } mb-7`}
@@ -116,6 +132,8 @@ const HeaderContent = ({ mainpage, combinedTitle }) => (
     </h2>
     {mainpage && (
       <Link
+        data-aos="fade-in"
+        data-aos-delay={400}
         href="/ekibimiz"
         className="px-8 py-3 md:px-10 md:py-5 homebtn relative group"
       >
@@ -147,7 +165,6 @@ function getCombinedTitle(path, title) {
 function getBackgroundImage(path) {
   const decodedPath = decodeURIComponent(path);
 
-  // Check if the path starts with "/blog"
   if (decodedPath.startsWith("/blog")) {
     return "blogbanner h-[50vh] md:h-[350px]";
   }
