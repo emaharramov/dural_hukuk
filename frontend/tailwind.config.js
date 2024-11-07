@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      letterSpacing: {
+        selfTightest: '-0.018em' // CSS'de doğrudan pixel yerine em birimi kullanılır
+      },
       fontFamily: {
         poppins: ["poppins-regular", "sans-serif"], // Default regular weight
         "poppins-semibold": ["poppins-semibold", "sans-serif"], // SemiBold weight

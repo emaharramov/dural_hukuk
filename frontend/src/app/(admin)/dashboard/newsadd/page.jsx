@@ -11,11 +11,7 @@ const Page = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [tags, setTags] = useState("");
-  const [author, setAuthor] = useState("");
-  const [authorsList, setAuthorsList] = useState([
-    { id: "1", name: "Author One" },
-    { id: "2", name: "Author Two" },
-  ]);
+  const [content, setContent] = useState("");
   const quillRef = useRef(null);
 
   useEffect(() => {
@@ -30,6 +26,9 @@ const Page = () => {
         ],
       },
     });
+    quill.on("text-change", () => {
+      setContent(quill.root.innerHTML);
+    });
     return () => quill.off("text-change");
   }, []);
 
@@ -42,53 +41,41 @@ const Page = () => {
     reader.readAsDataURL(file);
   };
 
- const handleSubmit = async (event) => {
-   event.preventDefault();
-   const content = quillRef.current.firstChild.innerHTML;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-   const token = Cookies.get("token");
-   console.log(token);
-   
-   if (!token) {
-     toast.error("User is not authenticated.");
-     return;
-   }
+    const token = Cookies.get("token");
 
-   try {
-     await axios.post(
-       "http://localhost:3000/api/posts",
-       {
-         title,
-         image,
-         content,
-         tags: tags.split(",").map((tag) => tag.trim()),
-         author: author
-           ? { _id: "672b12cd104c29a834cbe65d", name: author }
-           : null,
-       },
-       {
-         headers: { Authorization: `Bearer ${token}` },
-       }
-     );
-     toast.success("Post created successfully!");
-   } catch (error) {
-     if (error.response) {
-       // Specific error handling for different statuses
-       if (error.response.status === 400) {
-         toast.error("Bad request. Please check the input data.");
-       } else if (error.response.status === 401) {
-         toast.error("Unauthorized. Check your token.");
-       } else if (error.response.status === 403) {
-         toast.error("Forbidden. You do not have permission.");
-       } else {
-         toast.error("Failed to create post.");
-       }
-     } else {
-       toast.error("Network error. Check your connection.");
-     }
-     console.error("Error submitting post:", error);
-   }
- };
+    if (!token) {
+      toast.error("User is not authenticated.");
+      return;
+    }
+
+    const postData = {
+      title,
+      image,
+      content,
+      tags,
+    };
+
+    try {
+      await axios.post(
+        `http://localhost:3000/api/posts/`,
+        JSON.stringify(postData),
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success("Post added successfully!");
+    } catch (error) {
+      toast.error(
+        `Error: ${error.response ? error.response.data.message : error.message}`
+      );
+    }
+  };
 
   return (
     <div className="w-full mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
@@ -141,23 +128,6 @@ const Page = () => {
             placeholder="Tags (comma-separated)"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Author
-          </label>
-          <select
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            <option value="">Select an author</option>
-            {authorsList.map((author) => (
-              <option key={author.id} value={author.name}>
-                {author.name}
-              </option>
-            ))}
-          </select>
         </div>
         <button
           type="submit"

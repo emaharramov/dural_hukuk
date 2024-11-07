@@ -23,39 +23,41 @@ const Dashboard = () => {
       .catch((error) => {
         setLoading(false);
       });
-    }, []);
-    
-    console.log(posts);
+  }, []);
+
+  console.log(posts);
   const handleEditPost = (post) => {
     console.log("Editing post:", post);
   };
 
-const handleDeletePost = async (postId) => {
-  const token = Cookies.get("token")
+  const handleDeletePost = async (postId) => {
+    const token = Cookies.get("token");
 
-  try {
-    const response = await axios.delete(
-      `http://localhost:3000/api/posts/${postId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/api/posts/${postId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setPosts((prevPosts) =>
+          prevPosts.filter((post) => post._id !== postId)
+        );
+        console.log("Post deleted successfully");
+      } else {
+        console.error("Failed to delete post");
       }
-    );
-
-    if (response.status === 200) {
-      setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
-      console.log("Post deleted successfully");
-    } else {
-      console.error("Failed to delete post");
+    } catch (error) {
+      console.error(
+        "Error deleting post:",
+        error.response ? error.response.data : error.message
+      );
     }
-  } catch (error) {
-    console.error(
-      "Error deleting post:",
-      error.response ? error.response.data : error.message
-    );
-  }
-};
+  };
 
   return (
     <div className="h-full">

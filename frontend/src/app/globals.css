@@ -65,6 +65,9 @@
 .swiper-button-next {
     display: none !important;
 }
+.tableheight {
+    height: 100vh!important;
+}
 
 .btn {
     background-image: linear-gradient(to left, #0985f9, #0b72f8, #2f5cf3, #2f5cf3, #4d40ea);

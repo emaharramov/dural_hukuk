@@ -37,7 +37,6 @@ const Dashboard = () => {
       );
 
       if (response.ok) {
-        // Update the users state to remove the deleted user
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
         console.log("User deleted successfully");
       } else {

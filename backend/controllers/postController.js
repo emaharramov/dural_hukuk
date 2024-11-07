@@ -29,32 +29,38 @@ const path = require("path");
 
 exports.createPost = async (req, res) => {
   try {
-    const { title, content, tags, author, image } = req.body;
+    const { title, content, tags, image } = req.body;
 
     let imageUrl = null;
 
     if (image) {
-      // Base64 verisini çöz ve dosya olarak kaydet
+      const uploadDir = path.join(__dirname, "../uploads"); // Directory path
+      if (!fs.existsSync(uploadDir)) {
+        // Check if the directory exists
+        fs.mkdirSync(uploadDir, { recursive: true }); // Create the directory if it does not exist
+      }
+
+      // Process Base64 image data
       const base64Data = image.replace(/^data:image\/\w+;base64,/, "");
       const buffer = Buffer.from(base64Data, "base64");
-      const imageName = `${Date.now()}-image.jpg`; // Unique dosya adı
-      const imagePath = path.join(__dirname, "../uploads", imageName);
+      const imageName = `${Date.now()}-image.jpg`; // Unique file name
+      const imagePath = path.join(uploadDir, imageName);
 
-      fs.writeFileSync(imagePath, buffer);
-      imageUrl = `/uploads/${imageName}`; // Veritabanında saklanacak URL
+      fs.writeFileSync(imagePath, buffer); // Write the file
+      imageUrl = `/uploads/${imageName}`; // URL to be stored in the database
     }
 
-    // Post veritabanına kaydetme
+    // Create the post with image URL
     const post = await Post.create({
       title,
       content,
       tags: tags || [],
       image: imageUrl,
-      author,
     });
 
     res.status(201).json(post);
   } catch (error) {
+    console.error("Error creating post:", error); // Detailed error logging
     res.status(400).json({ error: error.message });
   }
 };

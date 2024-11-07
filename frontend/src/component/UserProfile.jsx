@@ -26,8 +26,8 @@ const UserProfile = () => {
       <div className="flex items-center space-x-4 p-4 bg-gray-50 transition-all duration-300 group-hover:bg-gray-100 rounded-lg">
         <FaUser className="text-xl" />
         <div className="flex-1">
-          <p className="text-sm font-semibold text-gray-800">Riley Carter</p>
-          <p className="text-sm text-gray-500">riley@email.com</p>
+          <p className="text-sm font-semibold text-gray-800">Admin Name</p>
+          <p className="text-sm text-gray-500">info@admin.com</p>
         </div>
         <FaEllipsisV
           className="text-gray-500 cursor-pointer group"

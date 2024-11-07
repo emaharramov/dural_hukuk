@@ -9,21 +9,24 @@ import {
   FaUser,
   FaYoutube,
 } from "react-icons/fa";
+import { MdAccountCircle } from "react-icons/md";
 import Navbar from "./Navbar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Cookies from "js-cookie";
 
 const socialMediaLinks = [
   { icon: FaFacebookSquare, link: "https://facebook.com" },
   { icon: FaInstagram, link: "https://instagram.com" },
   { icon: FaLinkedin, link: "https://linkedin.com" },
   { icon: FaYoutube, link: "https://youtube.com" },
-  { icon: FaUser, link: "/login" },
 ];
 
 const Header = () => {
   const path = usePathname();
   const [title, setTitle] = useState("");
+  const token = Cookies.get("token");
+  const bax = path.startsWith("/blog/");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -36,6 +39,7 @@ const Header = () => {
     () => getCombinedTitle(path, title),
     [path, title]
   );
+
   const bgImageClass = useMemo(() => getBackgroundImage(path), [path]);
 
   return (
@@ -43,7 +47,7 @@ const Header = () => {
       {/* Contact Information */}
       <div className="container mx-auto hidden md:flex items-stretch justify-between">
         <ContactInfo />
-        <SocialMediaLinks />
+        <SocialMediaLinks token={token} />
       </div>
 
       {/* Title Section */}
@@ -61,6 +65,7 @@ const Header = () => {
           <HeaderContent
             mainpage={path === "/"}
             combinedTitle={combinedTitle}
+            bax={bax}
           />
         </div>
       </div>
@@ -97,7 +102,7 @@ const ContactItem = ({ icon, link, text }) => (
 );
 
 // Social Media Links Component
-const SocialMediaLinks = () => (
+const SocialMediaLinks = ({ token }) => (
   <div className="border-l-[1px] flex divide-x-[1px]" data-aos="fade-up">
     {socialMediaLinks.map(({ icon: Icon, link }, index) => (
       <Link
@@ -108,18 +113,33 @@ const SocialMediaLinks = () => (
         <Icon className="transition-all duration-150 z-10 group-hover:text-white" />
       </Link>
     ))}
+    {token ? (
+      <Link
+        href={"/dashboard"}
+        className="p-4 group hover:bg-gradient-to-l hover:from-[#0985f9] hover:via-[#2f5cf3] hover:to-[#4d40ea] hover:border-[#333]"
+      >
+        <MdAccountCircle className="transition-all duration-150 z-10 group-hover:text-white" />
+      </Link>
+    ) : (
+      <Link
+        href={"/login"}
+        className="p-4 group hover:bg-gradient-to-l hover:from-[#0985f9] hover:via-[#2f5cf3] hover:to-[#4d40ea] hover:border-[#333]"
+      >
+        <FaUser className="transition-all duration-150 z-10 group-hover:text-white" />
+      </Link>
+    )}
   </div>
 );
 
 // Header Content Component
-const HeaderContent = ({ mainpage, combinedTitle }) => (
+const HeaderContent = ({ mainpage, combinedTitle, bax }) => (
   <div className="h-[70%] text-white flex flex-col items-center justify-center">
     <h1
       className="container mx-auto font-poppins-semibold text-center text-[26px] md:text-[32px] lg:text-[50px]"
       data-aos="fade-in"
       data-aos-delay={300}
     >
-      {combinedTitle}
+      {bax ? combinedTitle.split("/")[1] : combinedTitle}
     </h1>
     <h2
       data-aos="fade-in"
@@ -128,7 +148,11 @@ const HeaderContent = ({ mainpage, combinedTitle }) => (
         mainpage ? "md:text-[36px]" : ""
       } mb-7`}
     >
-      {mainpage ? "Çözüm Ortağınız" : `Ana Sayfa - ${combinedTitle}`}
+      {mainpage
+        ? "Çözüm Ortağınız"
+        : bax
+        ? `Ana Sayfa - ${combinedTitle.split("/")[1]}`
+        : `Ana Sayfa - ${combinedTitle}`}
     </h2>
     {mainpage && (
       <Link
