@@ -18,7 +18,11 @@ exports.login = async (req, res) => {
     if (!user || !(await user.matchPassword(password))) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.jwt_secret,
+      { expiresIn: "1h" }
+    );
     res.json({ token });
   } catch (error) {
     res.status(400).json({ error: error.message });

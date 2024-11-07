@@ -7,7 +7,7 @@
     }
   ],
   "env": {
-    "JWT_SECRET": "@jwt_secret",
+    "jwt_secret": "@jwt_secret",
     "MONGO_URI": "@mongo_uri"
   },
   "regions": ["iad1"],

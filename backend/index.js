@@ -51,7 +51,7 @@ app.use("/api/posts/add", (req, res, next) => {
     return res.status(403).json({ message: "Access Denied" });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+  jwt.verify(token, process.env.jwt_secret, (err, user) => {
     if (err) {
       return res.status(403).json({ message: "Invalid Token" });
     }
