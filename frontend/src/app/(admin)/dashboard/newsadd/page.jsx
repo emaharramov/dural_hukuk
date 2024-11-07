@@ -1,6 +1,6 @@
 "use client";
+import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
-import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,30 +8,34 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
+// Quill'i yalnızca istemci tarafında yükleyin
+const Quill = dynamic(() => import("quill"), { ssr: false });
+
 const Page = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [tags, setTags] = useState("");
   const [content, setContent] = useState("");
   const quillRef = useRef(null);
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    const quill = new Quill(quillRef.current, {
-      theme: "snow",
-      modules: {
-        toolbar: [
-          ["bold", "italic", "underline", "strike"],
-          [{ header: [1, 2, 3, false] }],
-          [{ list: "ordered" }, { list: "bullet" }],
-          ["clean"],
-        ],
-      },
-    });
-    quill.on("text-change", () => {
-      setContent(quill.root.innerHTML);
-    });
-    return () => quill.off("text-change");
+    if (typeof window !== "undefined" && Quill) {
+      const quill = new Quill(quillRef.current, {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            ["bold", "italic", "underline", "strike"],
+            [{ header: [1, 2, 3, false] }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["clean"],
+          ],
+        },
+      });
+      quill.on("text-change", () => {
+        setContent(quill.root.innerHTML);
+      });
+    }
   }, []);
 
   const handleFileChange = (event) => {
