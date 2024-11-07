@@ -3,11 +3,9 @@ const { register, login } = require("../controllers/authController");
 const User = require("../models/User");
 const router = express.Router();
 
-// Authentication routes
 router.post("/register", register);
 router.post("/login", login);
 
-// Get all users
 router.get("/users", async (req, res) => {
   try {
     const users = await User.find({});
@@ -18,7 +16,6 @@ router.get("/users", async (req, res) => {
   }
 });
 
-// Delete a user by ID
 router.delete("/users/:id", async (req, res) => {
   try {
     const userId = req.params.id;

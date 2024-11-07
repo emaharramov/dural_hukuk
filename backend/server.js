@@ -6,7 +6,7 @@ const postRoutes = require("./routes/postRoutes");
 const path = require("path");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken"); // Ensure JWT is required if you're using it in middleware
+const jwt = require("jsonwebtoken");
 
 dotenv.config();
 connectDB();
@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3001", // Ensure the client's origin matches this URL
+    origin: "http://localhost:3001",
     credentials: true,
   })
 );
@@ -26,18 +26,16 @@ app.use(cookieParser());
 
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-const hostname = "http://localhost:3000"; // Sunucunun adresi
+const hostname = "http://localhost:3000";
 
 app.post("/upload", (req, res) => {
-  const file = req.file; // Dosya yükleme işlemi burada yapıldığını varsayıyoruz
+  const file = req.file;
   const imageUrl = `${hostname}/uploads/${file.filename}`;
   res.json({ imageUrl });
 });
 
-// Define the /dashboard/newsadd route on the app instance
 app.get("/dashboard/newsadd", async (req, res) => {
   try {
-    // Simulated database access or other logic here
     res.send("News Add Page");
   } catch (error) {
     console.error("Error at /dashboard/newsadd:", error);
@@ -62,10 +60,8 @@ app.use("/api/posts/add", (req, res, next) => {
   });
 });
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 
-// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

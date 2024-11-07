@@ -12,13 +12,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(getPosts) // Lists all posts, accessible to everyone
-  .post(protect, isAdmin, upload.single("image"), createPost); // Create a new post, admin only
+  .get(getPosts)
+  .post(protect, isAdmin, upload.single("image"), createPost);
 
 router
   .route("/:id")
-  .get(getPostById) // Retrieve a specific post, accessible to everyone
-  .put(protect, isAdmin, updatePost) // Update a specific post, admin only
-  .delete(protect, isAdmin, deletePost); // Delete a specific post, admin only
+  .get(getPostById)
+  .put(protect, isAdmin, updatePost)
+  .delete(protect, isAdmin, deletePost);
 
 module.exports = router;

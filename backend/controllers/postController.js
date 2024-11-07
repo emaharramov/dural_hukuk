@@ -1,17 +1,14 @@
-// controllers/postController.js
 const Post = require("../models/Post");
 
-// Tüm gönderileri getirme
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("author", "name"); // Gönderileri kullanıcı adlarıyla birlikte getir
+    const posts = await Post.find().populate("author", "name");
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// Belirli bir gönderiyi ID ile getirme
 exports.getPostById = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id).populate("author", "name");
@@ -34,23 +31,20 @@ exports.createPost = async (req, res) => {
     let imageUrl = null;
 
     if (image) {
-      const uploadDir = path.join(__dirname, "../uploads"); // Directory path
+      const uploadDir = path.join(__dirname, "../uploads");
       if (!fs.existsSync(uploadDir)) {
-        // Check if the directory exists
-        fs.mkdirSync(uploadDir, { recursive: true }); // Create the directory if it does not exist
+        fs.mkdirSync(uploadDir, { recursive: true });
       }
 
-      // Process Base64 image data
       const base64Data = image.replace(/^data:image\/\w+;base64,/, "");
       const buffer = Buffer.from(base64Data, "base64");
-      const imageName = `${Date.now()}-image.jpg`; // Unique file name
+      const imageName = `${Date.now()}-image.jpg`;
       const imagePath = path.join(uploadDir, imageName);
 
-      fs.writeFileSync(imagePath, buffer); // Write the file
-      imageUrl = `/uploads/${imageName}`; // URL to be stored in the database
+      fs.writeFileSync(imagePath, buffer);
+      imageUrl = `/uploads/${imageName}`;
     }
 
-    // Create the post with image URL
     const post = await Post.create({
       title,
       content,
@@ -60,12 +54,11 @@ exports.createPost = async (req, res) => {
 
     res.status(201).json(post);
   } catch (error) {
-    console.error("Error creating post:", error); // Detailed error logging
+    console.error("Error creating post:", error);
     res.status(400).json({ error: error.message });
   }
 };
 
-// Belirli bir gönderiyi güncelleme
 exports.updatePost = async (req, res) => {
   try {
     const { title, content, tags } = req.body;
@@ -88,7 +81,6 @@ exports.updatePost = async (req, res) => {
   }
 };
 
-// Belirli bir gönderiyi silme
 exports.deletePost = async (req, res) => {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
