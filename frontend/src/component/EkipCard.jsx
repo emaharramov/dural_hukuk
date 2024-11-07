@@ -29,10 +29,10 @@ const ekip = [
 const EkipCard = () => {
   return (
     <div className="flex flex-wrap justify-center gap-4">
-      {ekip.map((ekip, i) => (
+      {ekip.map((ekip, index) => (
         <div
           data-aos="fade-up"
-          data-aos-duration={400 * i}
+          data-aos-duration={400 * index}
           key={ekip.id}
           className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 w-full md:w-[350px] flex flex-col items-center justify-center"
         >
