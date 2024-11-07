@@ -6,6 +6,8 @@ import { DotLoader } from "react-spinners";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -19,35 +21,41 @@ const Dashboard = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching posts:", error);
         setLoading(false);
       });
-  }, []);
-
+    }, []);
+    
+    console.log(posts);
   const handleEditPost = (post) => {
     console.log("Editing post:", post);
   };
 
-  const handleDeletePost = async (postId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/posts/${postId}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (response.ok) {
-        setPosts((prevPosts) =>
-          prevPosts.filter((post) => post._id !== postId)
-        );
-        console.log("Post deleted successfully");
-      } else {
-        console.error("Failed to delete post");
+const handleDeletePost = async (postId) => {
+  const token = Cookies.get("token")
+
+  try {
+    const response = await axios.delete(
+      `http://localhost:3000/api/posts/${postId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    } catch (error) {
-      console.error("Error deleting post:", error);
+    );
+
+    if (response.status === 200) {
+      setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+      console.log("Post deleted successfully");
+    } else {
+      console.error("Failed to delete post");
     }
-  };
+  } catch (error) {
+    console.error(
+      "Error deleting post:",
+      error.response ? error.response.data : error.message
+    );
+  }
+};
 
   return (
     <div className="h-full">

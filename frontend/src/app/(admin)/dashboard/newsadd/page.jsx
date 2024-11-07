@@ -47,6 +47,8 @@ const Page = () => {
    const content = quillRef.current.firstChild.innerHTML;
 
    const token = Cookies.get("token");
+   console.log(token);
+   
    if (!token) {
      toast.error("User is not authenticated.");
      return;
