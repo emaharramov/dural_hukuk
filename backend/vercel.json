@@ -7,8 +7,10 @@
     }
   ],
   "env": {
-    "jwt_secret": "@jwt_secret",
-    "MONGO_URI": "@mongo_uri"
+    "JWT_SECRET": "@JWT_SECRET",
+    "MONGO_URI": "@MONGO_URI",
+    "PORT": "@PORT",
+    "JWT_REFRESH_SECRET" : "@JWT_REFRESH_SECRET"
   },
   "regions": ["iad1"],
   "cleanUrls": true,
