@@ -20,6 +20,7 @@ const LoginPage = () => {
         { email, password }
       );
       const token = response.data.token;
+      console.log(token);
       Cookies.set("token", token, { expires: 1 });
       router.push("/dashboard");
       toast.success("Successfully logged in");

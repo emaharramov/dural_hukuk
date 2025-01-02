@@ -25,6 +25,7 @@
 .sosyalbanner,
 .iletisimbanner,
 .kurumsalbanner,
+.bg-contact,
 .bireyselbanner {
     background-position: center;
     background-size: cover;
@@ -36,6 +37,9 @@
 }
 .ekipbanner {
     background-image: url('../../public/assets/ekibimiz-banner.jpg');
+}
+.bg-contact, .bg-default {
+    background-image: url('../../public/assets/kurumsal-banner.png');
 }
 .blogbanner {
     background-image: url('../../public/assets/blog-banner.jpg');

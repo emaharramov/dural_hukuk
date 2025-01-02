@@ -26,7 +26,9 @@ const Header = () => {
   const [title, setTitle] = useState("Varsayılan Başlık");
   const [token, setToken] = useState(null);
   const bax = path.startsWith("/blog/");
-
+  const neleryapiyoruz = path.startsWith("/neleryapiyoruz/")
+  console.log(neleryapiyoruz);
+  
   useEffect(() => {
     // Sadece istemci tarafında çalışacak kodlar
     if (typeof window !== "undefined") {
@@ -67,6 +69,7 @@ const Header = () => {
             mainpage={path === "/"}
             combinedTitle={combinedTitle}
             bax={bax}
+            neleryapiyoruz={neleryapiyoruz}
           />
         </div>
       </div>
@@ -133,15 +136,18 @@ const SocialMediaLinks = ({ token }) => (
 );
 
 // Header Content Component
-const HeaderContent = ({ mainpage, combinedTitle, bax }) => (
+const HeaderContent = ({ mainpage, combinedTitle, bax, neleryapiyoruz }) => (
   <div className="h-[70%] text-white flex flex-col items-center justify-center">
     <h1
       className={`container mx-auto font-poppins-semibold text-center ${
         bax ? "text-[23px]" : ""
       } text-[26px] md:text-[32px] lg:text-[50px]`}
-    
     >
-      {bax ? combinedTitle.split("/")[1] : combinedTitle}
+      {bax
+        ? combinedTitle.split("/")[1]
+        : neleryapiyoruz
+        ? combinedTitle.split("/")[2]
+        : combinedTitle}
     </h1>
     <h2
       className={`font-poppins-semibold text-center text-[22px] ${
@@ -152,6 +158,8 @@ const HeaderContent = ({ mainpage, combinedTitle, bax }) => (
         ? "Çözüm Ortağınız"
         : bax
         ? `Ana Sayfa - ${combinedTitle.split("/")[1]}`
+        : neleryapiyoruz
+        ? `Ana Sayfa - ${combinedTitle.split("/")[2]}`
         : `Ana Sayfa - ${combinedTitle}`}
     </h2>
     {mainpage && (
@@ -195,7 +203,7 @@ function getBackgroundImage(path) {
     "/": "navbanner h-[50vh] md:h-[604px]",
     "/ekibimiz": "ekipbanner h-[50vh] md:h-[350px]",
     "/kurumsal": "kurumsalbanner h-[50vh] md:h-[350px]",
-    "/bireysel": "bireyselbanner h-[50vh] md:h-[350px]",
+    "/bireysel/": "bireyselbanner h-[50vh] md:h-[350px]",
     "/nelerapiyoruz": "bg-contact h-[50vh] md:h-[350px]",
     "/iletisim": "iletisimbanner h-[50vh] md:h-[350px]",
     "/sosyal-sorumluluk": "sosyalbanner h-[50vh] md:h-[350px]",
