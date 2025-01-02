@@ -93,7 +93,7 @@ const ContactInfo = () => (
 const ContactItem = ({ icon, link, text }) => (
   <div
     className="flex items-center gap-x-3 p-4 border-r-[1px]"
-    data-aos="fade-up"
+   
   >
     {icon}
     <a href={link} className="text-[#131418] font-poppins hover:underline">
@@ -104,7 +104,7 @@ const ContactItem = ({ icon, link, text }) => (
 
 // Social Media Links Component
 const SocialMediaLinks = ({ token }) => (
-  <div className="border-l-[1px] flex divide-x-[1px]" data-aos="fade-up">
+  <div className="border-l-[1px] flex divide-x-[1px]" >
     {socialMediaLinks.map(({ icon: Icon, link }, index) => (
       <Link
         href={link}
@@ -139,14 +139,11 @@ const HeaderContent = ({ mainpage, combinedTitle, bax }) => (
       className={`container mx-auto font-poppins-semibold text-center ${
         bax ? "text-[23px]" : ""
       } text-[26px] md:text-[32px] lg:text-[50px]`}
-      data-aos="fade-in"
-      data-aos-delay={300}
+    
     >
       {bax ? combinedTitle.split("/")[1] : combinedTitle}
     </h1>
     <h2
-      data-aos="fade-in"
-      data-aos-delay={350}
       className={`font-poppins-semibold text-center text-[22px] ${
         mainpage ? "md:text-[36px]" : bax ? "text-[18px]" : ""
       } mb-7`}
@@ -159,8 +156,6 @@ const HeaderContent = ({ mainpage, combinedTitle, bax }) => (
     </h2>
     {mainpage && (
       <Link
-        data-aos="fade-in"
-        data-aos-delay={400}
         href="/ekibimiz"
         className="px-8 py-3 md:px-10 md:py-5 homebtn relative group"
       >

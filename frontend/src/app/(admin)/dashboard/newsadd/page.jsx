@@ -1,42 +1,17 @@
 "use client";
-import dynamic from "next/dynamic";
-import React, { useEffect, useRef, useState } from "react";
-import "quill/dist/quill.snow.css";
+import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
-
-// Quill'i yalnızca istemci tarafında yükleyin
-const Quill = dynamic(() => import("quill"), { ssr: false });
+import { useRouter } from "next/navigation"; // Make sure the router import is correct.
 
 const Page = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [tags, setTags] = useState("");
   const [content, setContent] = useState("");
-  const quillRef = useRef(null);
   const router = useRouter();
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && Quill) {
-      const quill = new Quill(quillRef.current, {
-        theme: "snow",
-        modules: {
-          toolbar: [
-            ["bold", "italic", "underline", "strike"],
-            [{ header: [1, 2, 3, false] }],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["clean"],
-          ],
-        },
-      });
-      quill.on("text-change", () => {
-        setContent(quill.root.innerHTML);
-      });
-    }
-  }, []);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -49,9 +24,7 @@ const Page = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const token = Cookies.get("token");
-
     if (!token) {
       toast.error("User is not authenticated.");
       return;
@@ -118,11 +91,13 @@ const Page = () => {
           <label className="block text-sm font-medium text-gray-700">
             Content
           </label>
-          <div
-            ref={quillRef}
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Type your content here"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             style={{ height: "200px" }}
-            className="mt-1 bg-white border border-gray-300 rounded-md shadow-sm"
-          ></div>
+          ></textarea>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
