@@ -13,6 +13,8 @@ const NewsSlider = () => {
       try {
         const { data } = await axios.get("http://localhost:3000/api/posts/");
         setBlogs(data);
+        console.log(data);
+        
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       }
